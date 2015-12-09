@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="zardoni.matteo.timeline"
+
+    android:versionCode="1"
+    android:versionName="1.0"
+    android:largeHeap="true" >
+
+    <supports-screens android:anyDensity="false"/> 
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="23" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="zardoni.matteo.AppAndroid.Activities.SplashActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="zardoni.matteo.AppAndroid.Activities.MainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="zardoni.matteo.AppAndroid.Activities.TimelineActivity"
+            android:label="@string/title_activity_timeline" >
+        </activity>
+        <activity
+            android:name="zardoni.matteo.AppAndroid.Activities.FinishActivity"
+            android:label="@string/title_activity_finish" >
+        </activity>
+        <activity
+            android:name="zardoni.matteo.AppAndroid.Activities.TimelineDipendentiActivity"
+            android:label="@string/titl_dip" >
+        </activity>
+    </application>
+
+</manifest>

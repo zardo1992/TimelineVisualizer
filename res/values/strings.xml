@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <string name="app_name">Timeline Visualizer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="check_depend">Visualizza dipendenze fra timeline</string>
+    <string name="button_OK">OK</string>
+    <string name="desc">Logo</string>
+    <string name="title_activity_timeline">Visualizza Timeline</string>
+    <string name="title_activity_finish">FinishActivity</string>
+    <string name="info_action">Informazioni</string>
+    <string name="titl_dip">Visualizzazione timeline con dipendenze</string>
+</resources>

@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MergeRootFrame" >
+    
+	<RelativeLayout android:id="@+id/bottom_control_bar"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/Cornsilk"
+		android:layout_alignParentBottom="true">
+		
+		<CheckBox
+		    android:id="@+id/checkBoxN"
+		    android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:text="@string/check_depend" />
+		
+		<Button 
+		    android:id="@+id/OK"
+		    android:layout_width="fill_parent"
+			android:layout_height="wrap_content" 
+			android:layout_below="@+id/checkBoxN"
+			android:text="@string/button_OK" />
+		
+	</RelativeLayout>
+    
+    
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:focusable="false"
+        android:layout_above="@+id/bottom_control_bar">
+    </ListView>
+    
+</RelativeLayout>

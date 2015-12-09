@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:complexType name="groundTimerType">
+		<xs:sequence>
+			<xs:element name="groundPeriodMilliseconds" type="xs:positiveInteger" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="virtualTimerType">
+		<xs:sequence>
+			<xs:element name="reference" type="xs:string" />
+			<xs:element name="startImmediately" type="xs:boolean" />
+			<xs:element name="cyclic" type="xs:boolean" />
+			<xs:element name="duration" type="xs:positiveInteger" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="clockType">
+		<xs:sequence>
+			<xs:element name="timer" type="xs:string" />
+			<xs:element name="timeline" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="timelineType">
+		<xs:sequence>
+			<xs:element name="ManagerClass" type="xs:string" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />		
+	</xs:complexType>
+	
+	<xs:complexType name="performerClassType">
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="performerParameterType">
+	
+	</xs:complexType>
+	
+	<xs:complexType name="aperiodicExecutionType">
+		<xs:sequence>
+			<xs:element name="beginInstant" type="xs:positiveInteger" />
+			<xs:element name="relativeDeadline" type="xs:positiveInteger" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="periodicActivationType">
+		<xs:sequence>
+			<xs:element name="virtualTimer" type="xs:string" />
+			<xs:element name="period" type="xs:positiveInteger" />
+			<xs:element name="relativeDeadline" type="xs:positiveInteger" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="aperiodicActivationType">
+		<xs:sequence>
+			<xs:element name="clock" type="xs:string" />
+			<xs:element name="execution" type="aperiodicExecutionType" minOccurs="1" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="performerType">
+		<xs:sequence>
+			<xs:element name="class" type="xs:string" />
+			<xs:element name="parameter" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+			<xs:choice>
+				<xs:element name="periodicActivation" type="periodicActivationType" />
+				<xs:element name="aperiodicActivation" type="aperiodicActivationType" />
+			</xs:choice>
+			<xs:element name="requiredTimeline" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="requiredClock" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="duration" type="xs:long" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="tamType">
+		<xs:sequence>
+			<xs:element name="schedulingPolicy" type="xs:string" />
+		
+			<xs:element name="dispatcher" type="xs:string" />
+			
+			<xs:element name="performerSourceDirectory" type="xs:string" minOccurs="0" />
+		
+			<xs:element name="performerClassTemporaryDirectory" type="xs:string" minOccurs="0" />			
+		
+			<xs:element name="secondsToRun" type="xs:nonNegativeInteger" />
+
+			<xs:element name="timers">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="groundTimer" type="groundTimerType" />
+						<xs:element name="virtualTimer" type="virtualTimerType" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="timelines">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="timeline" type="timelineType" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="clocks">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="clock" type="clockType" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="performerClasses" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="performerClass" type="performerClassType" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>					
+			</xs:element>
+			
+			<xs:element name="performers" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="performer" type="performerType" minOccurs="0" maxOccurs="unbounded" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:element name="tam" type="tamType">
+		<xs:key name="timerName">
+			<xs:selector xpath="timers/*" />
+			<xs:field xpath="@name" />			
+		</xs:key>
+		<xs:key name="clockName">
+			<xs:selector xpath="clocks/*" />
+			<xs:field xpath="@name" />			
+		</xs:key>
+		<xs:key name="timelineName">
+			<xs:selector xpath="timelines/*" />
+			<xs:field xpath="@name" />			
+		</xs:key>
+		<xs:key name="performerClassName">
+			<xs:selector xpath="performerClasses/*" />
+			<xs:field xpath="@name" />			
+		</xs:key>
+		<xs:key name="performerName">
+			<xs:selector xpath="performers/*" />
+			<xs:field xpath="@name" />			
+		</xs:key>
+
+		<xs:keyref name="referenceName" refer="timerName">
+			<xs:selector xpath=".//virtualTimer" />
+			<xs:field xpath="reference" />
+		</xs:keyref>
+		<xs:keyref name="clockTimerName" refer="timerName">
+			<xs:selector xpath=".//clock" />
+			<xs:field xpath="timer" />
+		</xs:keyref>
+		<xs:keyref name="clockTimelineName" refer="timelineName">
+			<xs:selector xpath=".//clock" />
+			<xs:field xpath="timeline" />
+		</xs:keyref>
+		<xs:keyref name="referenceTimelineName" refer="timelineName">
+			<xs:selector xpath=".//timeline" />
+			<xs:field xpath="referenceTimeline" />
+		</xs:keyref>
+		<xs:keyref name="className" refer="performerClassName">
+			<xs:selector xpath=".//performer" />
+			<xs:field xpath="class" />
+		</xs:keyref>
+		<xs:keyref name="finalizerName" refer="performerName">
+			<xs:selector xpath=".//finalizer" />
+			<xs:field xpath="class" />
+		</xs:keyref>
+		<xs:keyref name="performerTimerName" refer="timerName">
+			<xs:selector xpath=".//performers" />
+			<xs:field xpath="virtualTimer" />
+		</xs:keyref>
+		<xs:keyref name="performerTimelineNames" refer="timelineName">
+			<xs:selector xpath=".//performers" />
+			<xs:field xpath="requiredTimeline" />
+		</xs:keyref>
+		<xs:keyref name="performerClockNames" refer="clockName">
+			<xs:selector xpath=".//performers" />
+			<xs:field xpath="requiredClock" />
+		</xs:keyref>
+		<xs:keyref name="performerActivationClockNames" refer="clockName">
+			<xs:selector xpath=".//performers" />
+			<xs:field xpath="clock" />
+		</xs:keyref>		
+	</xs:element>
+</xs:schema>

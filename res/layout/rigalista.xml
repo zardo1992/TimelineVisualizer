@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <CheckBox
+         android:id="@+id/titoloRiga"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="" 
+         android:clickable="false"
+         android:focusable="false"
+         android:textSize="22sp"/>
+    
+     <TextView
+         android:id="@+id/textViewList"
+         android:layout_width="316dp"
+         android:layout_height="wrap_content"
+         android:padding="10dip"
+         android:text=""
+         android:focusable="false"
+         android:textSize="12sp" />
+ 
+     <Space
+         android:layout_width="match_parent"
+         android:focusable="false"
+         android:layout_height="wrap_content" />
+
+     <Space
+         android:layout_width="match_parent"
+         android:focusable="false"
+         android:layout_height="wrap_content" />
+</LinearLayout>
